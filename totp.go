@@ -12,16 +12,17 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"github.com/sec51/convert"
-	"github.com/sec51/convert/bigendian"
-	"github.com/sec51/cryptoengine"
-	qr "github.com/sec51/qrcode"
 	"hash"
 	"io"
 	"math"
 	"net/url"
 	"strconv"
 	"time"
+
+	"github.com/sec51/convert"
+	"github.com/sec51/convert/bigendian"
+	"github.com/sec51/cryptoengine"
+	qr "github.com/sec51/qrcode"
 )
 
 const (
@@ -272,7 +273,7 @@ func calculateToken(counter []byte, digits int, h hash.Hash) string {
 
 // URL returns a suitable URL, such as for the Google Authenticator app
 // example: otpauth://totp/Example:alice@google.com?secret=JBSWY3DPEHPK3PXP&issuer=Example
-func (otp *Totp) url() (string, error) {
+func (otp *Totp) URL() (string, error) {
 
 	// verify the proper initialization
 	if err := totpHasBeenInitialized(otp); err != nil {
@@ -313,7 +314,7 @@ func (otp *Totp) url() (string, error) {
 func (otp *Totp) QR() ([]byte, error) {
 
 	// get the URL
-	u, err := otp.url()
+	u, err := otp.URL()
 
 	// check for errors during initialization
 	// this is already done on the URL method

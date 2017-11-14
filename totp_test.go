@@ -9,10 +9,11 @@ import (
 	"crypto/sha512"
 	"encoding/base64"
 	"encoding/hex"
-	"github.com/sec51/convert/bigendian"
 	"net/url"
 	"testing"
 	"time"
+
+	"github.com/sec51/convert/bigendian"
 )
 
 var sha1KeyHex = "3132333435363738393031323334353637383930"
@@ -307,12 +308,12 @@ func TestSerialization(t *testing.T) {
 		t.Error("Deserialized hash property differ from original TOTP")
 	}
 
-	deserializedUrl, err := deserializedOTP.url()
+	deserializedUrl, err := deserializedOTP.URL()
 	if err != nil {
 		t.Error(err)
 	}
 
-	otpdUrl, err := otp.url()
+	otpdUrl, err := otp.URL()
 	if err != nil {
 		t.Error(err)
 	}
@@ -341,7 +342,7 @@ func TestSerialization(t *testing.T) {
 
 func TestProperInitialization(t *testing.T) {
 	otp := Totp{}
-	if _, err := otp.url(); err == nil {
+	if _, err := otp.URL(); err == nil {
 		t.Fatal("Totp is not properly initialized and the method did not catch it")
 	}
 }
